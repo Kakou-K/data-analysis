@@ -102,16 +102,46 @@ select count(*) as total_projects from projects
 
 -- Exercise 11: Find the total salary paid to employees
 
+select sum (salary) as total_salary from employees
+
+
 
 -- Exercise 12: Find the average salary of employees
+
+select avg (salary) from employees
+
 
 
 -- Exercise 13: Find the total number of employees in a specific department (e.g., department_id = 1)
 
+select department_name, count (first_name) as no_emp from employees
+inner join departments on departments.department_id = employees.department_id  --???
+where employees.department_id = 1
+group by department_name
+
+select department_name,
+(select count (*) from employees
+    where employees.department_id = departments.department_id) as total_employees --???
+from departments
+where department_id = 1;
+
+
 
 -- Exercise 14: Calculate the total salary paid to employees in a specific department (e.g., department_id = 2)
 
+select department_name, sum (salary) as total_salary from employees
+inner join departments on departments.department_id = employees.department_id
+where departments.department_id = 2
+group by department_name
+
+
 -- Exercise 15: Find the average salary of employees in department_id = 3
+
+select department_name, avg (salary) as average from employees
+inner join departments on departments.department_id = employees.department_id
+where departments.department_id = 3
+group by department_name
+
 
 
 -- Exercise 16: Find all employees whose first name starts with 'A'
@@ -125,11 +155,22 @@ select project_name, end_date from projects where end_date between '2023-01-01' 
 
 -- Exercise 18: count all employees with salaries between 40000 and 60000
 
+select count (*)  as total_employees from employees
+where salary between 40000 and 60000  
+
+
 
 -- Exercise 19: Count the number of departments in the departments table
 
+select count(*) from departments
+
+
 
 -- Exercise 20: Find the sum of salaries for employees hired before 2015
+
+select sum (salary) from employees 
+where hire_date < '2015-01-01'
+
 
 --Exercise 21: Get the projects that started before January 1, 2020, and are associated with the 'IT' department.
 
