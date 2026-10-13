@@ -649,80 +649,80 @@ where department_id = 1 and salary > 70000
 select first_name, last_name from employees 
 where first_name like 'A%' or hire_date between '2022-01-01' and '2022-12-31'
 
--- . Find employees whose last name ends with 'son'.
+-- 103. Find employees whose last name ends with 'son'.
 
 select first_name, last_name from employees
 where first_name like '%son'
 
--- 103. Find employees hired between 2020-01-01 and 2022-12-31 in departments 1 and  4.
+-- 104. Find employees hired between 2020-01-01 and 2022-12-31 in departments 1 and  4.
 select * from employees
 where hire_date between '2020-01-01' and '2022-12-31'
 
 
--- 104. Find employees who belong to department 1 OR 3 OR earn more than 80k in salary.
+-- 105. Find employees who belong to department 1 OR 3 OR earn more than 80k in salary.
 select *from employees
 where department_id = 1 or department_id = 3
 
 
--- 105. Find employees whose salary is between 70,000 and 85,000.
+-- 106. Find employees whose salary is between 70,000 and 85,000.
 select first_name, last_name, salary from employees
 where salary between 70000 and 85000
 
--- 106. Find projects that started in 2023.
+-- 107. Find projects that started in 2023.
 
 select project_name, start_date from projects
 where start_date between '2023-01-01' and '2023-12-31'
 
--- 107. Find projects whose name contains the word 'System'.
+-- 108. Find projects whose name contains the word 'System'.
 select * from projects
 where project_name like '%system%'
 
--- 108. Show employee full names with their department names. hired after 2023
+-- 109. Show employee full names with their department names. hired after 2023
 
 select first_name, last_name, department_name, hire_date from employees
 inner join departments on departments.department_id = employees.department_id
 where hire_date > '2023-12-31'
 
--- 109. Show all employees including those without a department.
+-- 110. Show all employees including those without a department.
 
 select first_name, last_name, department_name from employees
 left join departments on departments.department_id = employees.department_id
 
 
 
--- 110. Find employees who work in HR or IT and earn more than 75,000.
+-- 111. Find employees who work in HR or IT and earn more than 75,000.
 
 select first_name, last_name, department_name from employees
 inner join departments on departments.department_id = employees.department_id
 where (department_name = 'HR' or department_name = 'IT')
 and salary > 75000
 
--- 111. Find projects that belong to the Marketing department.
+-- 112. Find projects that belong to the Marketing department.
 
  select project_name, department_name from projects
  inner join departments on departments.department_id = projects.department_id
  where department_name = 'Marketing'
 
 
--- 112. Find employees whose first name contains the letter 'o' and salary is greater than 65,000.
+-- 113. Find employees whose first name contains the letter 'o' and salary is greater than 65,000.
 
 select first_name, last_name , salary from employees
 where first_name like '%o%' and salary > 65000
 
 -----aggregations
 
--- 113. Count employees who earn more than 75,000.
+-- 114. Count employees who earn more than 75,000.
 
 select count (*) as top_performers from employees
 where salary >75000
 
--- 114. Find the average salary of employees
+-- 115. Find the average salary of employees
 -- in department 1 OR department 3.
 
 select avg(salary) as average from employees
 where department_id in (1,3)
 
--- 115. Find the highest salary among employees
+-- 116. Find the highest salary among employees
 -- hired between 2020 and 2023.
 
 select max (salary) from employees
@@ -730,42 +730,42 @@ where hire_date between '2020-01-01' and '2023-12-31'
 
 
 
--- 116. Find the minimum salary of employees
+-- 117. Find the minimum salary of employees
 -- whose first name starts with 'A' or 'M'.
 
 select min (salary) from employees
 where first_name like 'A%' or first_name like'M%'
 
 
--- 117. Count all projects that belong to
+-- 118. Count all projects that belong to
 -- the IT or Marketing departments.
 
 select count (*) from projects
 inner join departments on departments.department_id = projects.department_id
 where department_name = 'IT' or department_name = 'Marketing'
 
--- 118. Find the total salary of employees
+-- 119. Find the total salary of employees
 -- whose last name contains 'son'.
 
 select sum (salary) as total_salary from employees
 where last_name like '%son%'
 
 
--- 119. Find the average salary of employees
+-- 120. Find the average salary of employees
 -- in HR department earning above 65,000.
 
 select avg (salary) as average_HR from employees
 inner join departments on departments.department_id = employees.department_id
 where salary > 65000 and department_name = 'HR'
 
--- 120. Count employees with NULL department_id
+-- 121. Count employees with NULL department_id
 -- OR salary greater than 80,000.
 
 select count (*) from employees
 where department_id is null or salary > 80000
 
 
--- 121. Find the maximum salary of employees
+-- 122. Find the maximum salary of employees
 -- whose first name contains 'o'
 -- and who belong to IT department.
 
@@ -774,7 +774,7 @@ inner join departments on departments.department_id = employees.department_id
 where department_name = 'IT' and first_name like '%o%'
 
 
--- 122. Find the total number of projects
+-- 123. Find the total number of projects
 -- that started in 2023 and whose project name
 -- contains 'Program' or 'Platform'.
 
@@ -785,13 +785,13 @@ and (project_name like '%program%' or project_name like '%platform%')
 
 
 
--- 123. Count how many employees exist in each department.
+-- 124. Count how many employees exist in each department.
 
 select department_name , count (*) from employees
 inner join departments on departments.department_id = employees.department_id
 group by department_name
 
--- 124. Find the average salary per department
+-- 125. Find the average salary per department
 -- where average salary is greater than 70,000.
 
 select department_name,  avg (salary) from employees
@@ -800,7 +800,7 @@ group by department_name
 having avg(salary) > 70000
 
 
--- 125. Find the highest salary in each department
+-- 126. Find the highest salary in each department
 -- for employees hired after 2020.
 
 select department_name, max (salary) as highest from employees
@@ -817,7 +817,7 @@ where project_name like '%system%' or project_name like '%platform%'
 group by department_name
 
 
--- 126. Find the total salary per department
+-- 127. Find the total salary per department
 -- for employees earning between 65,000 and 85,000.
 
 select department_name, sum(salary) from employees
@@ -825,12 +825,12 @@ inner join departments on departments.department_id = employees.department_id
 where salary between 65000 and 85000
 group by department_name
 
--- 127. fere posous pairnoun katw apo to meso oro misthou
+-- 128. fere posous pairnoun katw apo to meso oro misthou
 
 select * from employees
 where salary < (select avg (salary) from employees) 
 
--- 128. List all employees who have a salary higher than the average salary of all employees.
+-- 129. List all employees who have a salary higher than the average salary of all employees.
 
 select first_name, last_name, salary,( select avg (salary) from employees) as average
 from employees 
@@ -838,22 +838,22 @@ from employees
 where salary > (select avg (salary) from employees) --gia na fainetai kai to average
 
 
--- 129. Show all employees hired after the earliest hire date in the company.
+-- 130. Show all employees hired after the earliest hire date in the company.
 
 select first_name, last_name, hire_date from employees
 where hire_date > (select min (hire_date) from employees)
 
--- 130. List the employees whose salary is equal to the highest salary in the company.
+-- 131. List the employees whose salary is equal to the highest salary in the company.
 
 select * from employees where salary = (select max (salary) from employees)
 
 
--- 131. Display the department whose department_id is the smallest.
+-- 132. Display the department whose department_id is the smallest.
 
 select department_name from departments
 where department_id = (select min (department_id) from departments)
 
--- 132. Show all employees who work in the department that has the most employees.
+-- 133. Show all employees who work in the department that has the most employees.
 
 
 select*from employees 
@@ -872,12 +872,12 @@ group by department_id
 order by count(*) desc)
 
 
--- 133. List employees who earn more than the average salary in the IT department (department_id = 3).
+-- 134. List employees who earn more than the average salary in the IT department (department_id = 3).
 
 select first_name, last_name, salary from employees 
 where salary> (select avg (salary) from employees where department_id = 3)
 
--- 7 Display the department name of the department where the highest-paid employee works.
+-- 135. Display the department name of the department where the highest-paid employee works.
 
 select department_name from departments 
 where department_id = (select department_id from employees
@@ -889,7 +889,7 @@ where salary = (select max (salary) from employees)
 
 
 
--- 134. List the employees who work in the same department as employee with employee_id = 1.
+-- 136. List the employees who work in the same department as employee with employee_id = 1.
 
 select first_name, last_name from employees
 where department_id = (select department_id from employees
@@ -897,53 +897,53 @@ where employee_id = 1)
 
 
 
--- 135. aytoi pou  doulevoun sto dept id 2 h doulevoun se project pou exei mesa ena A
+-- 137. aytoi pou  doulevoun sto dept id 2 h doulevoun se project pou exei mesa ena A
 
 select * from employees
 inner join projects on employees.department_id = projects.department_id
 where employees.department_id = 2 or project_name like '%A%'
 
--- 136. metra posoi ypallhloi irthan to 2021
+-- 138. metra posoi ypallhloi irthan to 2021
 
 select count (*) from employees
 where hire_date between '2021-01-01' and '2021-12-31'
 
--- 137. posoi doulevoun se ola ta tmhmata ektos to 3 kai 4
+-- 139. posoi doulevoun se ola ta tmhmata ektos to 3 kai 4
 
 select department_name, count(*) as posoi from employees
 inner join departments on employees.department_id = departments.department_id
 where departments.department_id not in (3,4)
 group by department_name
 
--- 138. posous employees exei to kathe tmhma, mono gia aytous pou hire date 2022
+-- 140. posous employees exei to kathe tmhma, mono gia aytous pou hire date 2022
 
 select department_id,  count (*) from employees
 where hire_date between '2022-01-01' and '2022-12-31'
 group by department_id
 
--- 139. fere me subquerie to atomo pou pairnei ta ligotera lefta apo olous
+-- 141. fere me subquerie to atomo pou pairnei ta ligotera lefta apo olous
 
 select first_name, last_name, salary from employees
 where salary = ( select min (salary) from employees)
 
--- 140. vres me subquerie poios irthe pio prosfata sth douleia
+-- 142. vres me subquerie poios irthe pio prosfata sth douleia
 
 select first_name, last_name, hire_date from employees
 where hire_date = (select max (hire_date) from employees)
 
--- 141. metra se posa project doulevei to it
+-- 143. metra se posa project doulevei to it
 
 select count(*) from projects
 inner join departments on projects.department_id = departments.department_id
 where department_name = 'IT' 
 
--- 142. fere tous employees pou doulevoun sto hr
+-- 144. fere tous employees pou doulevoun sto hr
 
 select first_name, last_name, department_name from employees
 inner join departments on employees.department_id = departments.department_id
 where department_name = 'HR'
 
--- 143. fere tous mesous orous pou xodevei to kathe tmhma alla mono ta tmhmata poy xodevoun meso oro metaxy 70-150k
+-- 145. fere tous mesous orous pou xodevei to kathe tmhma alla mono ta tmhmata poy xodevoun meso oro metaxy 70-150k
 
 
 
@@ -952,7 +952,7 @@ inner join departments on employees.department_id = departments.department_id
 group by department_name
 having avg(salary) between 70000 and 150000
 
--- 144. Find the average salary per department where average salary is greater than 70,000.
+-- 146. Find the average salary per department where average salary is greater than 70,000.
 
  select department_name, avg (salary) from employees
  inner join departments on employees.department_id = departments.department_id
@@ -960,7 +960,7 @@ having avg(salary) between 70000 and 150000
  having avg (salary) > 70000
 
 
--- 145. Find the highest salary in each department for employees hired after 2022.
+-- 147. Find the highest salary in each department for employees hired after 2022.
 
  select department_name, max(salary) as highest_salary
 from employees
@@ -969,7 +969,7 @@ on departments.department_id = employees.department_id
 where hire_date > '2022-12-31'
 group by department_name
 
--- 146. Count projects per department where project name contains 'System' or 'Platform'.
+-- 148. Count projects per department where project name contains 'System' or 'Platform'.
 
 select department_name, count(*) as total_projects
 from projects
@@ -979,23 +979,23 @@ or project_name like '%Platform%'
 group by department_name
 
 
--- 147. Find the total salary per department for employees earning between 65,000 and 85,000.
+-- 149. Find the total salary per department for employees earning between 65,000 and 85,000.
 
--- 148. Find the average salary per department where average salary is greater than 70,000.---having giati filtrarw avg
+-- 150. Find the average salary per department where average salary is greater than 70,000.---having giati filtrarw avg
 
 select department_name, sum (salary) as total_salary from employees
 inner join departments on employees.department_id = departments.department_id
 where salary between 65000 and 85000
 group by department_name
 
--- 149. List all employees who have a salary higher than the average salary of all employees.
+-- 151. List all employees who have a salary higher than the average salary of all employees.
 
 select first_name, last_name, salary
 from employees
 where salary >
 (select avg(salary) from employees)
 
--- 150. Show all employees hired after the earliest hire date in the company.
+-- 152. Show all employees hired after the earliest hire date in the company.
 
 select first_name, last_name, hire_date
 from employees
@@ -1003,13 +1003,13 @@ where hire_date >
 (select min(hire_date) from employees)
 
 
--- 151. List the employees whose salary is equal to the highest salary in the company.
+-- 153. List the employees whose salary is equal to the highest salary in the company.
 
 select first_name, last_name, salary
 from employees
 where salary = (select max(salary) from employees)
 
--- 152. Display the department whose department_id is the smallest.
+-- 154. Display the department whose department_id is the smallest.
 
 select department_name from departments
 where department_id = (select min (department_id) from departments)
@@ -1018,31 +1018,31 @@ select top 1 department_name
 from departments
 order by department_id
 
--- 153. List employees who earn more than the average salary in the IT department (department_id = 3).
+-- 155. List employees who earn more than the average salary in the IT department (department_id = 3).
 
 select first_name, last_name, salary
 from employees
 where salary >
 (select avg(salary) from employees where department_id = 3)
 
--- 7 Display the department name of the department where the highest-paid employee works.
+-- 156. Display the department name of the department where the highest-paid employee works.
 
 select department_name from departments
 inner join employees on departments.department_id = employees.department_id
 where salary = (select max (salary) from employees)
 
--- 154. display the 5 oldest employees on the company
+-- 157. display the 5 oldest employees on the company
 
 select top 5 * from employees
 order by hire_date desc
 
--- 155. how many on h and it only?
+-- 158. how many on h and it only?
 
 select count (*) as total from employees
 inner join departments on employees.department_id = departments.department_id
 where department_name in ('HR','IT')
 
--- 156. create a view containing departments and how many employees
+-- 159. create a view containing departments and how many employees
 create view employees_per_department as 
 select department_name, count(*) as emp_number from departments
 inner join employees on departments.department_id = employees.department_id
@@ -1050,7 +1050,7 @@ group by department_name
 
 select * from employees_per_department
 
--- 157. create a view gia ypallhlous pou doulevoun sto dept id 1 h 3 h vgazoun panw apo 80k
+-- 160. create a view gia ypallhlous pou doulevoun sto dept id 1 h 3 h vgazoun panw apo 80k
 
 
 
@@ -1074,14 +1074,14 @@ where department_id = 3
 
 
 
--- 158. Retrieve the `first_name`, `last_name`, and `salary` of all employees hired after '2022-01-01' who earn more than 60000.
+-- 161. Retrieve the `first_name`, `last_name`, and `salary` of all employees hired after '2022-01-01' who earn more than 60000.
 
 select first_name, last_name, salary
 from employees 
 where hire_date > '2022-01-01' and salary > 60000
 
 
--- 159. Calculate the total and average `salary` for each unique `department_id`.
+-- 162. Calculate the total and average `salary` for each unique `department_id`.
 
 
 select department_id, sum (salary) as total_salary,
@@ -1091,7 +1091,7 @@ group by department_id
 
 
 
--- 160. List each `department_name` and the number of employees associated with it. Include departments that might have a `NULL` name (like Department ID 5) and display 'Unnamed Department' for them.
+-- 163. List each `department_name` and the number of employees associated with it. Include departments that might have a `NULL` name (like Department ID 5) and display 'Unnamed Department' for them.
 select*from departments
 select count(*) as total_employees,
     case
@@ -1103,7 +1103,7 @@ select count(*) as total_employees,
 on departments.department_id = employees.department_id
 group by department_name;
 
--- 161. Categorize employees into salary brackets: 'High Salary' (salary > 80000), 'Medium Salary' (salary between 50000 and 80000 inclusive), and 'Low Salary' (salary < 50000). Count how many employees fall into each category.
+-- 164. Categorize employees into salary brackets: 'High Salary' (salary > 80000), 'Medium Salary' (salary between 50000 and 80000 inclusive), and 'Low Salary' (salary < 50000). Count how many employees fall into each category.
 
 select 'High Salary' as salary_bracket, count(*) as total_employees
 from employees
@@ -1123,19 +1123,19 @@ where salary < 50000
 
 
 
--- 162. Create a view named `EmployeeContactInfo` that displays `employee_id`, `first_name`, `last_name`, and `department_name` for all employees. Use a `LEFT JOIN` to ensure all employees are included, even those with a `NULL department_id` (like Employee ID 46).
+-- 165. Create a view named `EmployeeContactInfo` that displays `employee_id`, `first_name`, `last_name`, and `department_name` for all employees. Use a `LEFT JOIN` to ensure all employees are included, even those with a `NULL department_id` (like Employee ID 46).
 
 create view employeecontactinfo as
 select employee_id, first_name, last_name, department_name
 from employees
 left join departments on departments.department_id = employees.department_id
 
--- 163. Using the `EmployeeContactInfo` view created in the previous exercise, select the `first_name` and `last_name` of all employees who work in a department named 'Sales' (case-insensitive).
+-- 166. Using the `EmployeeContactInfo` view created in the previous exercise, select the `first_name` and `last_name` of all employees who work in a department named 'Sales' (case-insensitive).
 
 select first_name, last_name from employeecontactinfo
 where department_name= 'sales'
 
--- 164. List all unique `department_id`s that appear in either the `employees` table or the `projects` table.
+-- 167. List all unique `department_id`s that appear in either the `employees` table or the `projects` table.
 
 select department_id
 from employees
@@ -1146,18 +1146,18 @@ select department_id
 from projects
 
 --auto thelei UNION
--- 165. Combine the `first_name` of all employees and the `project_name` of all projects into a single result set. Add a column named `RecordType` which indicates whether the entry is 'Employee' or 'Project'.
+-- 168. Combine the `first_name` of all employees and the `project_name` of all projects into a single result set. Add a column named `RecordType` which indicates whether the entry is 'Employee' or 'Project'.
 
 select first_name, 'employees' as recordtype from employees
 union
 select project_name, 'project' as recordtype from projects 
 
--- 166. Find the `employee_id`, `first_name`, and `last_name` of all employees who are not assigned to any department (i.e., their `department_id` is `NULL`).
+-- 169. Find the `employee_id`, `first_name`, and `last_name` of all employees who are not assigned to any department (i.e., their `department_id` is `NULL`).
 
 select employee_id, first_name, last_name from employees
 where department_id is null
 
--- 167. Display the `first_name`, `last_name`, and the `department_name` for all employees. If an employee has a `NULL department_id` (like Alice Williams, Employee ID 46), display 'Unassigned' as their department name. If a department has a `NULL department_name` (like Department ID 5), display 'Unknown Department Name'.
+-- 170. Display the `first_name`, `last_name`, and the `department_name` for all employees. If an employee has a `NULL department_id` (like Alice Williams, Employee ID 46), display 'Unassigned' as their department name. If a department has a `NULL department_name` (like Department ID 5), display 'Unknown Department Name'.
 
 select first_name, last_name,
 case
@@ -1168,19 +1168,19 @@ end as department_name
 from employees
 left join departments on employees.department_id = departments.department_id
 
--- 168. For each department, find the highest and lowest `salary`. Display the `department_name`. Include all departments, even those with no employees. If a department has no employees, show `NULL` for max/min salary.
+-- 171. For each department, find the highest and lowest `salary`. Display the `department_name`. Include all departments, even those with no employees. If a department has no employees, show `NULL` for max/min salary.
 
 select department_name, max(salary) as highest_salary, min(salary) as lowest_salary from employees
 left join departments on employees.department_id = departments.department_id
 group by department_name
 
--- 169. Count the total number of projects that started in the year 2023.
+-- 172. Count the total number of projects that started in the year 2023.
 
 select count(*) as total_projects
 from projects
 where start_date between '2023-01-01' and '2023-12-31'
 
--- 170. Create a view named `DepartmentSalarySummary` that shows each `department_name` along with the `total_salary` and `employee_count` for that department. Include departments even if they have a `NULL` name, displaying 'Unnamed Department' for them.
+-- 173. Create a view named `DepartmentSalarySummary` that shows each `department_name` along with the `total_salary` and `employee_count` for that department. Include departments even if they have a `NULL` name, displaying 'Unnamed Department' for them.
 
 create view DepartmentSallarySummary as 
 select sum(salary) as total_salary, count (employee_id) as employee_count,
@@ -1193,7 +1193,7 @@ select*from DepartmentSallarySummary
 
 
 
--- 171. Select `project_name` and display its associated `department_name`. If a project has a `NULL department_id` (like Project ID 141), show 'Cross-Departmental' instead of a `NULL` name. Filter the results to include only projects that started before '2023-01-01'.
+-- 174. Select `project_name` and display its associated `department_name`. If a project has a `NULL department_id` (like Project ID 141), show 'Cross-Departmental' instead of a `NULL` name. Filter the results to include only projects that started before '2023-01-01'.
 
 select project_name,
 case when projects.department_id is null then 'cross-departmental'
@@ -1203,20 +1203,20 @@ end as department_name from projects
 left join departments on projects.department_id= departments.department_id
 where start_date < '2023-01-01'
 
--- 172. List the `department_name`s that have more than 3 employees.
+-- 175. List the `department_name`s that have more than 3 employees.
 
 select department_name from departments
 inner join employees on departments.department_id = employees.department_id
 group by department_name
 having count(employee_id) > 3 
 
--- 173. Find the `employee_id`, `first_name`, and `last_name` for employees who either earn more than 70000 OR were hired after '2023-01-01' AND work in `department_id` 101.
+-- 176. Find the `employee_id`, `first_name`, and `last_name` for employees who either earn more than 70000 OR were hired after '2023-01-01' AND work in `department_id` 101.
 
 select employee_id, first_name, last_name
 from employees
 where salary > 70000 or (hire_date > '2023-01-01' and department_id = 101)
 
--- 174. Display `project_name` along with a `ProjectStatus` column. If `end_date` is `NULL`, the status is 'Ongoing'. If `end_date` is a future date (relative to the current date), the status is 'Upcoming'. Otherwise, the status is 'Completed'.
+-- 177. Display `project_name` along with a `ProjectStatus` column. If `end_date` is `NULL`, the status is 'Ongoing'. If `end_date` is a future date (relative to the current date), the status is 'Upcoming'. Otherwise, the status is 'Completed'.
 
 select
 project_name,
@@ -1226,7 +1226,7 @@ else 'Completed'
 end as ProjectStatus
 from projects
 
--- 175. Create a combined list of all `department_id`s from the `employees` table and the `projects` table. For any `NULL department_id` values found in either table (like for Employee ID 46 or Project ID 141), display `999` instead. Ensure there are no duplicate `department_id`s in the final list.
+-- 178. Create a combined list of all `department_id`s from the `employees` table and the `projects` table. For any `NULL department_id` values found in either table (like for Employee ID 46 or Project ID 141), display `999` instead. Ensure there are no duplicate `department_id`s in the final list.
 
 select 
 case when department_id is null then 999
@@ -1242,7 +1242,7 @@ else department_id
 end as id
 from projects
 
--- 176. Create a view named `EmployeePerformanceTier` that includes `employee_id`, `first_name`, `last_name`, `salary`, and a new column `PerformanceTier`. Assign 'Tier A' if `salary` > 90000, 'Tier B' if `salary` is between 60000 and 90000 (inclusive), and 'Tier C' otherwise. Include employees with `NULL department_id`.
+-- 179. Create a view named `EmployeePerformanceTier` that includes `employee_id`, `first_name`, `last_name`, `salary`, and a new column `PerformanceTier`. Assign 'Tier A' if `salary` > 90000, 'Tier B' if `salary` is between 60000 and 90000 (inclusive), and 'Tier C' otherwise. Include employees with `NULL department_id`.
 
 create view EmployeePerformanceTier as
 select employee_id, first_name, last_name,salary,
@@ -1253,7 +1253,7 @@ end as performanceTier
 from employees
 
 
--- 177. Calculate the total salary of employees working on projects that are currently 'Ongoing' (i.e., `end_date` is `NULL`). Group this total by the `department_name`. If a project or employee department is `NULL`, count its associated salary towards an 'Unspecified Department' category.
+-- 180. Calculate the total salary of employees working on projects that are currently 'Ongoing' (i.e., `end_date` is `NULL`). Group this total by the `department_name`. If a project or employee department is `NULL`, count its associated salary towards an 'Unspecified Department' category.
 
 select department_name, sum(salary) as total_salary,
 case when department_name is null then 'Unspecified Department'
@@ -1267,35 +1267,35 @@ inner join projects on employees.department_id = projects.department_id
 group by department_name
 
 
--- 178. for each department, how many employees, sum salary and se panw apo 10 project
+-- 181. for each department, how many employees, sum salary and se panw apo 10 project
 
 select department_name, sum(salary), count(*) from departments
 inner join employees on departments.department_id = employees.department_id
 group by department_name
 having count(*) > 10
 
--- 179. poios pairnei ta pio polla lefta apo olous?
+-- 182. poios pairnei ta pio polla lefta apo olous?
 
 select first_name, last_name, salary from employees
 where salary = (select max(salary) from employees)
 
--- 180. the oldest person hired?
+-- 183. the oldest person hired?
 
 select first_name, last_name, hire_date from employees
 where hire_date = (select min(hire_date) from employees)
 
--- 181. employees who work on hr or finance
+-- 184. employees who work on hr or finance
 
 select first_name, last_name from employees
 where department_id in (select department_id from departments where department_name in ('HR','finance'))
 
---ana xronia posa hires eixame
+-- 185. ana xronia posa hires eixame
 
 select year (hire_date), count(*) from employees
 group by year (hire_date)
 
 
--- 182. Retrieve employees with department name HR, IT, or Finance and salary greater than 70000 using JOIN
+-- 186. Retrieve employees with department name HR, IT, or Finance and salary greater than 70000 using JOIN
 
 select first_name, last_name, department_name, salary from employees
 inner join departments on employees.department_id = departments.department_id
@@ -1303,7 +1303,7 @@ where department_name in ('HR', 'IT', 'Finance')
 and salary > 70000
 
 
--- 2 Find employees in department 1 or 3 with salary between 65000 and 90000 and first name starting with A
+-- 187. Find employees in department 1 or 3 with salary between 65000 and 90000 and first name starting with A
 
 select first_name, last_name, salary from employees 
 where department_id in (1,3) and salary between 65000 and 90000 and first_name like 'A'
@@ -1316,31 +1316,31 @@ group by department_name
 having count (employee_id) > 2
 
 
--- 4 Find average salary per department and show only departments with avg salary above 75000
+-- 188. Find average salary per department and show only departments with avg salary above 75000
 
 select department_name, avg (salary) from departments
 inner join employees on departments.department_id = employees.department_id
 group by department_name
 having avg(salary) > 75000
 
--- 5 Retrieve employees with salary > 80000, department in (2,3,4), and last name not like '%son%'
+-- 189. Retrieve employees with salary > 80000, department in (2,3,4), and last name not like '%son%'
 
 select * from employees 
 where department_id in (2,3,4) and last_name not like '%son%' and salary > 80000
 
--- 6 Show projects between 2023 and 2024 whose name contains 'System' using WHERE and LIKE
+-- 190. Show projects between 2023 and 2024 whose name contains 'System' using WHERE and LIKE
 
 select * from projects
 where start_date between '2023-01-01' and '2024-01-01'
 and project_name like '%system%'
 
--- 7 Retrieve employees whose salary is between 70000 and 85000 and first/last name contains 'a' or 'e'
+-- 191. Retrieve employees whose salary is between 70000 and 85000 and first/last name contains 'a' or 'e'
 
 select * from employees 
 where salary between 70000 and 80000 and (first_name like '%a%' or last_name like '%a%'
 or first_name like '%e%' or last_name like '%e%') 
 
--- 8 Show each department with maximum salary and exclude departments where max salary equals 90000
+-- 192. Show each department with maximum salary and exclude departments where max salary equals 90000
 
 select department_name, max (salary) as maximum from departments
 inner join employees on departments.department_id =employees.department_id
@@ -1348,18 +1348,18 @@ group by department_name
 having max (salary) <> 90000
 
 
--- 9 Find employees NOT in departments 1 or 2 and salary between 60000 and 85000
+-- 193. Find employees NOT in departments 1 or 2 and salary between 60000 and 85000
 
 select * from employees
 where department_id not in (1,2) and salary between 60000 and 85000
 
--- 10 Retrieve projects where end date is not '2023-12-31' and project name contains 'App'
+-- 194. Retrieve projects where end date is not '2023-12-31' and project name contains 'App'
 
 select project_name, end_date from projects
 where end_date <> '2023-12-31'
 and project_name like '%app%'
 
--- 11 Count employees per department with salary > 65000 and show only groups having more than 3 employees
+-- 195. Count employees per department with salary > 65000 and show only groups having more than 3 employees
 
 select department_name, count(employee_id) as total_employees from departments
 inner join employees on departments.department_id = departments.department_id
@@ -1367,14 +1367,14 @@ where salary > 65000
 group by department_name
 having count (employee_id) > 3
 
--- 12 Find employees in departments 1 or 2 whose first name does not start with J
+-- 196. Find employees in departments 1 or 2 whose first name does not start with J
 
 select first_name, last_name, department_id from employees
 where department_id in (1,2) and first_name not like 'J%'
 
 
 
--- 13 Count projects per department starting after 2023-01-01 and show only departments with more than 2 projects
+-- 197. Count projects per department starting after 2023-01-01 and show only departments with more than 2 projects
 
 select department_name, count (project_id) as total_projects from departments
 inner join projects on departments.department_id = departments.department_id
@@ -1383,7 +1383,7 @@ group by department_name
 having count (project_id) >2 
 
 
--- 14 Show employees whose salary is greater than the average salary of their department
+-- 198. Show employees whose salary is greater than the average salary of their department
 
 select * from employees e
 
@@ -1394,7 +1394,7 @@ where e.department_id = em.department_id
 
 
 
--- 183. Show employee first names and employee and department columns.
+-- 199. Show employee first names and employee and department columns.
 
 select first_name  onoma , 
 * from employees as em
@@ -1402,13 +1402,13 @@ inner join departments as  d
 
 on d.department_id = em.department_id
 
--- 184. Create a view of average salary by department.
+-- 200. Create a view of average salary by department.
 
 create view departmentaveragesalary as 
 select avg (salary) as average_salary, department_id from employees
 group by department_id
 
--- 185. Find employees earning more than their department's average salary.
+-- 201. Find employees earning more than their department's average salary.
 
 select first_name, last_name, salary, department_name from employees
 inner join departments on employees.department_id = departments.department_id
@@ -1418,75 +1418,75 @@ where salary > average_salary
 
 
 
--- 15 Find employees who belong to departments that have at least one project
+-- 202. Find employees who belong to departments that have at least one project
 
 select first_name, last_name from employees
 inner join projects on employees.department_id = projects.department_id 
 
 
--- 16 List employees with no matching department (NULL or missing department reference)
+-- 203. List employees with no matching department (NULL or missing department reference)
 
 select first_name, last_name, department_name from employees
 left join departments on employees.department_id = departments.department_id
 where departments.department_id is null 
 
--- 17 Find departments that do not have any employees assigned
+-- 204. Find departments that do not have any employees assigned
 
 select department_name from departments
 left join employees on departments.department_id = employees.department_id
 where employees.department_id is null 
 
--- 18 Show employees whose salary is higher than any employee in department 3
+-- 205. Show employees whose salary is higher than any employee in department 3
 
 select first_name,last_name, salary from employees
 where salary > (select min (salary) from employees where department_id =3)
 
--- 19 Find employees whose salary is lower than all employees in department 2
+-- 206. Find employees whose salary is lower than all employees in department 2
 
 select first_name, last_name, salary from employees
 where salary < (select max(salary) from employees where department_id =2)
 
--- 20 List projects along with department name using JOIN and filter only active projects (end_date in future)
+-- 207. List projects along with department name using JOIN and filter only active projects (end_date in future)
 
 select project_name, department_name from projects
 inner join departments on projects.department_id = departments.department_id
 where end_date> getdate()
 
--- 21 Find employees hired between 2020 and 2023 and salary not equal to 70000 or 80000
+-- 208. Find employees hired between 2020 and 2023 and salary not equal to 70000 or 80000
 
 select*from employees where hire_date between '2020-01-01' and '2023-12-31'
 and salary not in (70000, 80000)
 
--- 22 Show employees whose first name contains 'o' and last name does not contain 'a', in departments 3 or 4
+-- 209. Show employees whose first name contains 'o' and last name does not contain 'a', in departments 3 or 4
 
 select first_name, last_name, department_id from employees
 where first_name like '%o%' and last_name not like '%a%' and department_id in (3,4)
 
--- 23 Find departments where employee count is between 2 and 5 using HAVING and BETWEEN logic
+-- 210. Find departments where employee count is between 2 and 5 using HAVING and BETWEEN logic
 
 select department_name, count (employee_id) as total_employees from departments
 inner join employees on departments.department_id = employees.department_id
 group by department_name
 having count (employee_id) between 2 and 5 
 
--- 24 Retrieve projects whose name starts with 'C' or 'S' and belong to departments 1, 2, or 3
+-- 211. Retrieve projects whose name starts with 'C' or 'S' and belong to departments 1, 2, or 3
 
 select project_name, department_id from projects
 where(project_name like 'C%'
 or project_name like 'S%')
 and department_id in (1, 2, 3)
 
--- 25 Show employees with salary > 75000 and hired after 2021, ordered by salary and department
+-- 212. Show employees with salary > 75000 and hired after 2021, ordered by salary and department
 
 select * from employees where salary> 75000 and hire_date > '2021-12-31'
 order by salary, department_id
 
--- 26 Find employees whose department is NOT in (1,3,4) and salary between 60000 and 85000
+-- 213. Find employees whose department is NOT in (1,3,4) and salary between 60000 and 85000
 
 select*from employees where department_id not in (1,3,4)
 and salary between 60000 and 85000
 
--- 27 Show departments and number of projects where project name contains 'Data' or 'Cloud'
+-- 214. Show departments and number of projects where project name contains 'Data' or 'Cloud'
 
 select department_name, count(project_id) as total_projects from departments
 inner join projects on departments.department_id = projects.department_id
@@ -1494,16 +1494,16 @@ where project_name like '%Data%'
 or project_name like '%Cloud%'
 group by department_name;
 
--- 28 Find employees whose salary is equal to the highest salary in the entire table
+-- 215. Find employees whose salary is equal to the highest salary in the entire table
 
 select first_name, last_name, salary from employees 
 where salary = (select max(salary) from employees)
 
--- 29 Retrieve employees who are not assigned to any project-related department
+-- 216. Retrieve employees who are not assigned to any project-related department
 
 
 
--- 30 Find departments where the difference between max and min salary of employees is greater than 20000
+-- 217. Find departments where the difference between max and min salary of employees is greater than 20000
 
 
 ---cte me employees
@@ -1528,8 +1528,8 @@ select first_name, last_name, department_name from employees_2022
 inner join departments_t on employees_2022.department_id = departments_t.department_id
 
 
--- 186.
--- 187. Create a CTE that shows all employees
+-- 218.
+-- 219. Create a CTE that shows all employees
 -- with salary greater than 70000.
 
 with highsalaryemployees as
@@ -1539,8 +1539,8 @@ select * from highsalaryemployees
 
 
 
--- 188.
--- 189. Create a CTE that counts employees
+-- 220.
+-- 221. Create a CTE that counts employees
 -- in each department.
 
 with depemployeecount as
@@ -1550,9 +1550,9 @@ group by department_name)
 
 select*from depemployeecount 
 
--- 190.
--- 191. Create a CTE that calculates the average salary
--- 192. for each department.
+-- 222.
+-- 223. Create a CTE that calculates the average salary
+-- 224. for each department.
 
 with avsa as
 (select avg(salary) as average_salary, department_name from departments
@@ -1562,8 +1562,8 @@ group by department_name)
 select*from avsa
 
 
--- 193.
--- 194. Create a CTE that shows employees hired after 2022
+-- 225.
+-- 226. Create a CTE that shows employees hired after 2022
 -- and join it with departments to show department names.
 
 with e2022 as
@@ -1574,8 +1574,8 @@ select* from e2022
 inner join departments on e2022.department_id = departments.department_id
 
 
--- 195.
--- 196. Create a CTE that shows the highest salary
+-- 227.
+-- 228. Create a CTE that shows the highest salary
 -- in each department.
 
 with highest as
@@ -1585,8 +1585,8 @@ group by department_name)
 
 select * from highest
 
--- 197.
--- 198. Create a CTE that lists employees and their
+-- 229.
+-- 230. Create a CTE that lists employees and their
 -- department names, ordered by salary.
 
 with empdep as
@@ -1597,8 +1597,8 @@ select* from empdep
 order by salary
 
 
--- 199.
--- 200. Create a CTE that counts how many projects
+-- 231.
+-- 232. Create a CTE that counts how many projects
 -- belong to each department.
 
 with procount as
@@ -1609,8 +1609,8 @@ group by department_name)
 select * from procount
 
 
--- 201.
--- 202. Create a CTE that shows departments
+-- 233.
+-- 234. Create a CTE that shows departments
 -- with more than 5 employees.
 
 with count5 as
@@ -1622,8 +1622,8 @@ having count(employee_id) > 5)
 select* from count5
 
 
--- 203.
--- 204. Create a CTE that calculates the total salary
+-- 235.
+-- 236. Create a CTE that calculates the total salary
 -- paid in each department.
 
 with depsal as 
@@ -1635,8 +1635,8 @@ group by department_name)
 select* from depsal
 
 
--- 205.
--- 206. Create a CTE that finds employees
+-- 237.
+-- 238. Create a CTE that finds employees
 -- with the highest salary in the company.
 
 with highest as
@@ -1647,8 +1647,8 @@ where salary = (select max(salary) from employees))
 select * from highest
 
 
--- 207.
--- 208. Create a CTE that shows projects
+-- 239.
+-- 240. Create a CTE that shows projects
 -- with their department names.
 
 
@@ -1660,8 +1660,8 @@ inner join departments on projects.department_id = departments.department_id)
 select* from d_projects
 
 
--- 209.
--- 210. Create a CTE that shows departments
+-- 241.
+-- 242. Create a CTE that shows departments
 -- with no employees.
 
 with noemp as
@@ -1672,8 +1672,8 @@ where employees.department_id is null)
 
 select* from noemp
 
--- 211.
--- 212. Create a CTE that shows employees
+-- 243.
+-- 244. Create a CTE that shows employees
 -- whose salary is above their department average.
 
 with depavg as
@@ -1690,8 +1690,8 @@ where salary> average
 
 
 
--- 213.
--- 214. Create a CTE that counts projects
+-- 245.
+-- 246. Create a CTE that counts projects
 -- started after 2023 for each department.
 
 with depproj as
@@ -1705,9 +1705,9 @@ group by department_name)
 select* from depproj
 
 
--- 215.
--- 216. Create a CTE that shows the top 5 highest-paid
--- 217. employees with their department names.
+-- 247.
+-- 248. Create a CTE that shows the top 5 highest-paid
+-- 249. employees with their department names.
 
 with top5 as
 
@@ -1717,8 +1717,8 @@ order by salary desc)
 
 select * from top5
 
--- 218.
--- 219. Create a CTE that finds the department
+-- 250.
+-- 251. Create a CTE that finds the department
 -- with the most employees.
 
 with maxdep as
@@ -1730,8 +1730,8 @@ order by total desc)
 select * from maxdep
 
 
--- 220.
--- 221. Create a CTE that calculates the minimum,
+-- 252.
+-- 253. Create a CTE that calculates the minimum,
 -- maximum, and average salary of employees.
 
 with salarystats as
@@ -1742,8 +1742,8 @@ select* from salarystats
 
 
 
--- 222.
--- 223. Create a CTE that shows each department
+-- 254.
+-- 255. Create a CTE that shows each department
 -- and the number of projects and employees.
 
 with fl as 
@@ -1755,8 +1755,8 @@ select* from fl
 
 
 
--- 224.
--- 225. Create a CTE that finds the employee
+-- 256.
+-- 257. Create a CTE that finds the employee
 -- with the second highest salary.
 
 with secemp as
@@ -1767,7 +1767,7 @@ order by salary desc)
 
 select* from secemp
 
--- 226. create cte for each depid count how many work
+-- 258. create cte for each depid count how many work
 
 with total as
 
@@ -1793,8 +1793,8 @@ from employees)
 select*from performance
 where salary_performance = 'medium'
 
--- 227. make 2 cte. 1st containing employees with hire date 2022. 2nd projects having end date before 2023
--- 228. make joins with departments
+-- 259. make 2 cte. 1st containing employees with hire date 2022. 2nd projects having end date before 2023
+-- 260. make joins with departments
 
 with hire2022 as
 
@@ -1814,72 +1814,72 @@ inner join bf2023 on hire2022.department_id = bf2023.department_id
 
 --na tsekarw an einai swsto
 
--- 229. bring employees working on IT
+-- 261. bring employees working on IT
 
 select * from employees
 inner join departments on employees.department_id = departments.department_id
 where department_name = 'IT'
 
--- 230. bring employees where hire date 2022 or work on hr
+-- 262. bring employees where hire date 2022 or work on hr
 
 select first_name, last_name, department_name, hire_date from employees
 inner join departments on employees.department_id = departments.department_id
 where hire_date between '12-31-2022' and '01-01-2022' or department_name = 'HR'
 
--- 231. count average salary per department
+-- 263. count average salary per department
 
 select avg(salary) as average, department_name from employees
 inner join departments on employees.department_id = departments.department_id
 group by department_name
 
--- 232. show departments only if having more than 11 employees
+-- 264. show departments only if having more than 11 employees
 
 select department_name, count(employee_id) from employees
 inner join departments on employees.department_id = departments.department_id
 group by department_name
 having count (employee_id) > 11
 
--- 233. make a quere that counts employees having 'a' to their name.
+-- 265. make a quere that counts employees having 'a' to their name.
 
 select count(employee_id) as total_employees from employees
 where first_name like '%a%' or last_name like '%a%'
 
 
--- 234. bring projects that have start date before 2022 and are assigned to IT
+-- 266. bring projects that have start date before 2022 and are assigned to IT
 
 select * from projects
 inner join departments on projects.department_id = departments.department_id
 where start_date < '12-31-2022' and department_name = 'IT'
 
--- 235. bring the highest salary on each department.
+-- 267. bring the highest salary on each department.
 
 select max(salary) as highest_salary, department_name from employees
 inner join departments on employees.department_id = departments.department_id
 group by department_name
 
--- 236. bring employees having salary greater than the average salary
+-- 268. bring employees having salary greater than the average salary
 
 select first_name, last_name, salary from employees
 where salary > (select avg(salary) from employees)
 
--- 237. find who has the best salary
+-- 269. find who has the best salary
 
 select top 1 
 first_name, last_name, salary from employees
 order by salary desc
 
--- 238. find the second highest paid
+-- 270. find the second highest paid
 
 select first_name, last_name, salary from employees
 where salary = (select max(salary) from employees where salary < (select max(salary) from employees))
 
--- 239. find employees with salary less than the highest paid
+-- 271. find employees with salary less than the highest paid
 
 select top 1 * from employees
 where salary < (select max(salary) from employees)
 order by salary desc
 
--- 240. make a cte where employees having hire date 2023 or having more than 80000 and join it with departments to show which departments they work to
+-- 272. make a cte where employees having hire date 2023 or having more than 80000 and join it with departments to show which departments they work to
 
 with employee23 as 
 (select first_name, last_name, salary,hire_date, department_id from employees
@@ -1888,7 +1888,7 @@ where hire_date between '2023-01-01' and '2023-12-31' or salary >80000)
 select first_name, last_name, salary, hire_date, department_name from employee23
 inner join departments on employee23.department_id = departments.department_id
 
--- 241. select employees that work on dept id 2 or 3 or 4
+-- 273. select employees that work on dept id 2 or 3 or 4
 
 select first_name, last_name, department_id from employees
 where department_id in (2,3,4)
