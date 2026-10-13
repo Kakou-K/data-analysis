@@ -235,27 +235,35 @@ Select first_name, last_name from employees
 where last_name LIKE '%Smith%'
 
 
----Find all employees who work on projects in departments other than their own.
+-- Find the first and last names of employees earning more than 70000 in Finance or IT.
 
 select first_name, last_name from employees
 inner join departments on
 departments.department_id = employees.department_id
 where salary > 70000 and department_name in ('finance', 'IT')
 
+-- List employees hired between January 1 and June 1, 2022, along with their department names.
+
 select first_name, last_name, department_name
 from employees
 inner join departments on employees.department_id = departments.department_id
 where hire_date between '2022-01-01' and '2022-06-01'
+
+-- Find the earliest-hired employee in the IT department, showing all columns.
 
 select top 1 * from employees 
 inner join departments on employees.department_id = departments.department_id
 where department_name = 'IT'  
 order by hire_date  asc 
 
+-- List employee names, their departments, and projects associated with those departments.
+
 select first_name, last_name, department_name, project_name from employees
 inner join departments on employees.department_id = departments.department_id
 inner join projects on employees.department_id = projects.department_id
 
+
+-- List HR employees whose salaries are outside the range 60000 to 70000.
 
 select first_name, last_name, salary from employees 
 inner join departments on employees.department_id = departments.department_id
